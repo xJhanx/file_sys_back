@@ -1,0 +1,5 @@
+import { User } from '../models/User';
+
+export interface  UserRepository {
+  create(user : User) : Promise<User>;
+}

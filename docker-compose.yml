@@ -1,0 +1,27 @@
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql_dev
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PWD_MYSQL_ROOT}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: [
+        "CMD", "mysqladmin", "ping", "-h", "localhost",
+        "-u", "root", "-p${PWD_MYSQL_ROOT}"
+      ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:
