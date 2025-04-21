@@ -96,3 +96,16 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## PostMan collection
+- [x] PostMan collection : https://app.getpostman.com/join-team?invite_code=d9c1dee506b2d59ca8f4fb03577d73a2c39cd8b0141651cedccfd4240f8e4d0a&target_code=d1caaede00ee6ea62197644decbecce6
+
+## Feactures 
+
+- [x] Docs : https://docs.google.com/document/d/17joAXcJ_HjbUnYCjlCQXee0HassI_Kd7h_5-r31M-yg/edit?usp=sharing
+
+## Notion template
+- [x] Notion : https://www.notion.so/Proyectos-y-tareas-1dce14222021803cb3a7e07ecc5fa9df?pvs=4
+
+## Database diagram
+- [x] Database diagram : https://drawsql.app/teams/inventory-system/diagrams/inventory-system
