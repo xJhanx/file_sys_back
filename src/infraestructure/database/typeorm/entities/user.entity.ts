@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({
   name: 'user',
@@ -10,18 +10,21 @@ export class UserOrmEntity {
   @Column({ type: 'varchar', length: 50, nullable: false })
   name: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: false })
+  @Column({ type: 'varchar', length: 50, nullable: false })
+  last_name: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: false,unique:true })
   email: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'text', nullable: true})
   refresh_token: string;
 
-  @Column({ type: 'varchar', length: 50, nullable: false })
+  @Column({ type: 'varchar', length: 200, nullable: false })
   password: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn()
   created_at: Date;
 
-  @Column({ type: 'timestamp', default: ()     => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn()
   updated_at: Date;
 }

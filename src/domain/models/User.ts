@@ -1,9 +1,14 @@
 export class User {
-  id: number;
-  name: string;
-  email: string;
-  refresh_token: string;
-  password: string;
-  created_at: Date;
-  updated_at: Date;
+  constructor(
+    public name: string,
+    public last_name: string,
+    public email: string,
+    public refresh_token: string,
+    public password: string,
+    public id ?: number
+  ) {}
+
+  modifyPassword(newPassword: string): void {
+    this.password = newPassword;
+  }
 }
