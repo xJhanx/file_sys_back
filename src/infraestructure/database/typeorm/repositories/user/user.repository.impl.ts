@@ -28,4 +28,16 @@ export class UserRepositoryImpl implements UserRepository {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async update(user: User): Promise<User> {
+    try {
+      const data: UserOrmEntity | null = await this.typeOrmDb.findOne({ where: { id: user.id } });
+      if (!data) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+      return await this.typeOrmDb.save(user);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

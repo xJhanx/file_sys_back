@@ -17,7 +17,7 @@ export class CreateUserUseCase {
     const hashedPassword: string = await this.passwordHasher.hashPassword(user.password);
     user.modifyPassword(hashedPassword);
     await this.userRepository.create(user);
-    await this.mailerRepository.sendEmail(user.email, "Hello ✔", 'Bienvenido a Sys Inventory');
+    await this.mailerRepository.sendWelcomeEmail(user.email, "Hello ✔");
     return user;
   }
 
