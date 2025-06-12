@@ -3,7 +3,7 @@ import { Category } from '../../../../../domain/models/Category';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryOrmEntity } from '../../entities/category.entity';
 import { Repository } from 'typeorm';
-import { CategoryMapper } from '../../../../mappers/category.mapper';
+import { CategoryOrmMapper } from '../../../../mappers/category.mapper';
 
 export class CategoryRepositoryImpl implements CategoryRepository {
   constructor(
@@ -17,7 +17,7 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   async findByName(name: string): Promise<Category | null> {
     const category: CategoryOrmEntity | null = await this.typeOrmDb.findOne({ where: { name } });
     if (category) {
-      return CategoryMapper.toDomain(category);
+      return CategoryOrmMapper.ormToModel(category);
     }
     return null;
   }
