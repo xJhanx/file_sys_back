@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateCategoryDto {
   @IsNotEmpty({
@@ -19,5 +19,6 @@ export class CreateCategoryDto {
       message: 'El código de la categoría debe ser un número',
     }
   )
+  @IsOptional()
   code?: number; // Optional field, can be undefined
 }
