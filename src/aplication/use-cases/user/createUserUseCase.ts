@@ -5,6 +5,7 @@ import { PasswordHashRepository } from '../../../domain/repositories/password.ha
 import { MailerRepository } from '../../../domain/repositories/mailer.repository';
 import { CreateUserDtoMapper } from '../../../presentation/mappers/user/createUserDtoMapper';
 import { CreateUserDto } from '../../../presentation/dtos/user/user.dto';
+import { CreateUserModel } from '../../../domain/models/user/createUser.model';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -15,7 +16,7 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(user: CreateUserDto): Promise<void> {
-    const userModel = CreateUserDtoMapper.toModel(user);
+    const userModel : CreateUserModel = CreateUserDtoMapper.toModel(user);
     await this.validateExistingUser(user.email);
     const hashedPassword: string = await this.passwordHasher.hashPassword(user.password);
     userModel.modifyPassword(hashedPassword);
