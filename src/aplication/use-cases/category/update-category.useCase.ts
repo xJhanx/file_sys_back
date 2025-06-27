@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { CategoryRepository } from '../../../domain/repositories/category.repository';
 import { UpdateCategoryDto } from '../../../presentation/dtos/category/edit-category.dto';
-import { Category } from '../../../domain/models/Category';
-import { CategoryDtoMapper } from '../../../presentation/mappers/category/categoryDtoMapper';
+import { UpdateCategoryDtoMapper } from '../../../presentation/mappers/category/updateCategoryDtoMapper';
+import { UpdateCategoryModel } from '../../../domain/models/category/updateCategory.model';
 
 export class UpdateCategoryUseCase {
   constructor(
@@ -10,10 +10,10 @@ export class UpdateCategoryUseCase {
   ) {}
 
   async execute(id: number, categoryDto: UpdateCategoryDto): Promise<void> {
-    const data: Category = CategoryDtoMapper.dtoToModel(categoryDto);
+    const data: UpdateCategoryModel = UpdateCategoryDtoMapper.dtoToModel(id,categoryDto);
     data.id = id;
 
-    const category : Category | null = await this.categoryRepository.findById(id);
+    const category : UpdateCategoryModel | null = await this.categoryRepository.findById(id);
 
     if (!category) {
       throw new HttpException(`Category with id ${id} not found`,HttpStatus.NOT_FOUND);

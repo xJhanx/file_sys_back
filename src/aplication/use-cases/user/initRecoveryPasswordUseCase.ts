@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { User } from '../../../domain/models/User';
+import { UserModel } from '../../../domain/models/user/UserModel';
 import { JwtRepository } from '../../../domain/repositories/jwt.repository';
 import { MailerRepository } from '../../../domain/repositories/mailer.repository';
 
@@ -13,7 +13,7 @@ export class InitRecoveryPasswordUseCase {
   ) {}
 
   async execute(email: string) {
-    const user: User | null = await this.userRepository.findByEmail(email);
+    const user: UserModel | null = await this.userRepository.findByEmail(email);
     if (!user) {
       throw new HttpException('No se encontro usuario con ese email', HttpStatus.NOT_FOUND);
     }

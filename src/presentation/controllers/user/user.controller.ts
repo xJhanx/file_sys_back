@@ -1,7 +1,6 @@
 import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { CreateUserUseCase } from '../../../aplication/use-cases/user/createUserUseCase';
 import { CreateUserDto } from '../../dtos/user/user.dto';
-import { User } from '../../../domain/models/User';
 import { RecoveryPasswordDto } from '../../dtos/user/recovery-password.dto';
 import { InitRecoveryPasswordUseCase } from '../../../aplication/use-cases/user/initRecoveryPasswordUseCase';
 import { InitRecoveryPasswordDto } from '../../dtos/user/InitRecoveryPassword.dto';
@@ -17,14 +16,7 @@ export class UserController {
 
   @Post()
   async create(@Body() data: CreateUserDto): Promise<void> {
-    const user: User = new User(
-      data.name,
-      data.last_name,
-      data.email,
-      data.refresh_token,
-      data.password
-    );
-    await this.createUserUseCase.execute(user);
+    await this.createUserUseCase.execute(data);
   }
 
   @Post('recovery-password-process')

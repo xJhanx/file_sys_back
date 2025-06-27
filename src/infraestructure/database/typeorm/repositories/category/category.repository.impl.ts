@@ -1,21 +1,23 @@
 import { CategoryRepository } from '../../../../../domain/repositories/category.repository';
-import { Category } from '../../../../../domain/models/Category';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryOrmEntity } from '../../entities/category.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CategoryOrmMapper } from '../../../../mappers/category.mapper';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { CategoryModel } from '../../../../../domain/models/category/category.model';
+import { CreateCategoryModel } from '../../../../../domain/models/category/createCategory.model';
+import { UpdateCategoryModel } from '../../../../../domain/models/category/updateCategory.model';
 
 export class CategoryRepositoryImpl implements CategoryRepository {
   constructor(
     @InjectRepository(CategoryOrmEntity) private readonly typeOrmDb: Repository<CategoryOrmEntity>
   ) {}
 
-  async create(data: Category): Promise<void> {
+  async create(data: CreateCategoryModel): Promise<void> {
     await this.typeOrmDb.save(data);
   }
 
-  async findByName(name: string): Promise<Category | null> {
+  async findByName(name: string): Promise<CategoryModel | null> {
     const category: CategoryOrmEntity | null = await this.typeOrmDb.findOne({ where: { name } });
     if (category) {
       return CategoryOrmMapper.ormToModel(category);
@@ -23,7 +25,7 @@ export class CategoryRepositoryImpl implements CategoryRepository {
     return null;
   }
 
-async findById(id: number): Promise<Category | null> {
+async findById(id: number): Promise<CategoryModel | null> {
     const category: CategoryOrmEntity | null = await this.typeOrmDb.findOne({ where: { id } });
     if (category) {
       return CategoryOrmMapper.ormToModel(category);
@@ -31,7 +33,7 @@ async findById(id: number): Promise<Category | null> {
     return null;
 }
 
-async update(data: Category): Promise<void> {
+async update(data: UpdateCategoryModel): Promise<void> {
     await this.typeOrmDb.save(data);
 }
 

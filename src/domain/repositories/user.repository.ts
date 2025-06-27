@@ -1,7 +1,9 @@
-import { User } from '../models/User';
+import { UserModel } from '../models/user/UserModel';
+import { CreateUserModel } from '../models/user/createUser.model';
+import { UpdateUserModel } from '../models/user/updateUser.model';
 
 export interface  UserRepository {
-  create(user : User) : Promise<User>;
-  update(user : User) : Promise<User>;
-  findByEmail(email : string) : Promise<User | null>;
+  create(user : CreateUserModel) : Promise<void>;
+  update(user : UpdateUserModel) : Promise<void>;
+  findByEmail(email : string) : Promise<UserModel | null>;
 }

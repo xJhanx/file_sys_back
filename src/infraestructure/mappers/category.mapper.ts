@@ -1,8 +1,8 @@
 import { CategoryOrmEntity } from '../database/typeorm/entities/category.entity';
-import { Category } from '../../domain/models/Category';
+import { CategoryModel } from '../../domain/models/category/category.model';
 
 export class CategoryOrmMapper {
-  static ormToModel(data: CategoryOrmEntity): Category {
-    return new Category(data.name, data.description, data.id);
+  static ormToModel(data: CategoryOrmEntity): CategoryModel {
+    return new CategoryModel(data.id ,data.name, data.description, data.id);
   }
 }
