@@ -2,9 +2,9 @@ import { UserRepository } from '../../../domain/repositories/user.repository';
 import { HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { JwtRepository } from '../../../domain/repositories/jwt.repository';
 import { MailerRepository } from '../../../domain/repositories/mailer.repository';
-import { UserModel } from '../../../domain/models/user/UserModel';
+import { UserModel } from '../../../domain/models/user/user.model';
 import { StatusToken } from '../../../infraestructure/interfaces/jwt/statusToken.interface';
-import { PasswordHashRepository } from '../../../domain/repositories/password.hash.repository';
+import { PasswordHashRepository } from '../../../domain/repositories/password-hash.repository';
 
 export class RecoveryPasswordUseCase {
   constructor(

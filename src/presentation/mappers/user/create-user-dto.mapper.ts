@@ -1,5 +1,5 @@
-import { CreateUserDto } from '../../dtos/user/user.dto';
-import { CreateUserModel } from '../../../domain/models/user/createUser.model';
+import { CreateUserDto } from '../../dtos/user/create-user.dto';
+import { CreateUserModel } from '../../../domain/models/user/create-user.model';
 
 export class CreateUserDtoMapper {
   static toModel(dto: CreateUserDto): CreateUserModel {

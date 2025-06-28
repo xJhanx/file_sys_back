@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { UserModel } from '../../../domain/models/user/UserModel';
-import { PasswordHashRepository } from '../../../domain/repositories/password.hash.repository';
+import { UserModel } from '../../../domain/models/user/user.model';
+import { PasswordHashRepository } from '../../../domain/repositories/password-hash.repository';
 import { MailerRepository } from '../../../domain/repositories/mailer.repository';
-import { CreateUserDtoMapper } from '../../../presentation/mappers/user/createUserDtoMapper';
-import { CreateUserDto } from '../../../presentation/dtos/user/user.dto';
-import { CreateUserModel } from '../../../domain/models/user/createUser.model';
+import { CreateUserDtoMapper } from '../../../presentation/mappers/user/create-user-dto.mapper';
+import { CreateUserDto } from '../../../presentation/dtos/user/create-user.dto';
+import { CreateUserModel } from '../../../domain/models/user/create-user.model';
 
 @Injectable()
 export class CreateUserUseCase {

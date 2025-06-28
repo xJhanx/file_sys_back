@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
-import { CreateUserUseCase } from '../../../aplication/use-cases/user/createUserUseCase';
+import { CreateUserUseCase } from '../../../aplication/use-cases/user/create-user.usecase';
 import { UserRepositoryImpl } from '../../../infraestructure/database/typeorm/repositories/user/user.repository.impl';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserOrmEntity } from '../../../infraestructure/database/typeorm/entities/user.entity';
 import { PasswordHashServiceImpl } from '../../../infraestructure/services/password-hash-service-impl';
 import { MailerRepositoryImpl } from '../../../infraestructure/mailer/repositories/mailer.repository.impl';
-import { InitRecoveryPasswordUseCase } from '../../../aplication/use-cases/user/initRecoveryPasswordUseCase';
+import { InitRecoveryPasswordUseCase } from '../../../aplication/use-cases/user/init-recovery-password.usecase';
 import { JwtRepositoryImpl } from '../../../infraestructure/jwt/jwt.repository.impl';
-import { RecoveryPasswordUseCase } from '../../../aplication/use-cases/user/recoveryPasswordUseCase';
+import { RecoveryPasswordUseCase } from '../../../aplication/use-cases/user/recovery-password-usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserOrmEntity])],

@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { CategoryRepository } from '../../../domain/repositories/category.repository';
-import { CreateCategoryDtoMapper } from '../../../presentation/mappers/category/createCategoryDtoMapper';
+import { CreateCategoryDtoMapper } from '../../../presentation/mappers/category/create-category-dto.mapper';
 import { CreateCategoryDto } from '../../../presentation/dtos/category/create-category.dto';
-import { CreateCategoryModel } from '../../../domain/models/category/createCategory.model';
+import { CreateCategoryModel } from '../../../domain/models/category/create-category.model';
 import { CategoryModel } from '../../../domain/models/category/category.model';
 
 export class CreateCategoryUseCase {

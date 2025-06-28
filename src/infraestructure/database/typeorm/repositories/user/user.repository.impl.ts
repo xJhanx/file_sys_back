@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserRepository } from '../../../../../domain/repositories/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserModel } from '../../../../../domain/models/user/UserModel';
+import { UserModel } from '../../../../../domain/models/user/user.model';
 import { Repository } from 'typeorm';
 import { UserOrmEntity } from '../../entities/user.entity';
 import { UserMapper } from '../../../../mappers/user.mapper';
-import { CreateUserModel } from '../../../../../domain/models/user/createUser.model';
-import { UpdateUserModel } from '../../../../../domain/models/user/updateUser.model';
+import { CreateUserModel } from '../../../../../domain/models/user/create-user.model';
+import { UpdateUserModel } from '../../../../../domain/models/user/update-user.model';
 
 @Injectable()
 export class UserRepositoryImpl implements UserRepository {
@@ -25,6 +25,15 @@ export class UserRepositoryImpl implements UserRepository {
   async findByEmail(email: string): Promise<UserModel | null> {
     try {
       const data: UserOrmEntity | null = await this.typeOrmDb.findOne({ where: { email } });
+      return UserMapper.toModel(data);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async findById(id: number): Promise<UserModel | null> {
+    try {
+      const data: UserOrmEntity | null = await this.typeOrmDb.findOne({ where: { id } });
       return UserMapper.toModel(data);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);

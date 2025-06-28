@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { UserModel } from '../../../domain/models/user/UserModel';
+import { UserModel } from '../../../domain/models/user/user.model';
 import { JwtRepository } from '../../../domain/repositories/jwt.repository';
 import { MailerRepository } from '../../../domain/repositories/mailer.repository';
 

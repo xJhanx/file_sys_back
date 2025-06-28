@@ -1,22 +1,30 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
-import { CreateUserUseCase } from '../../../aplication/use-cases/user/createUserUseCase';
-import { CreateUserDto } from '../../dtos/user/user.dto';
+import { Body, Controller, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { CreateUserUseCase } from '../../../aplication/use-cases/user/create-user.usecase';
+import { CreateUserDto } from '../../dtos/user/create-user.dto';
 import { RecoveryPasswordDto } from '../../dtos/user/recovery-password.dto';
-import { InitRecoveryPasswordUseCase } from '../../../aplication/use-cases/user/initRecoveryPasswordUseCase';
-import { InitRecoveryPasswordDto } from '../../dtos/user/InitRecoveryPassword.dto';
-import { RecoveryPasswordUseCase } from '../../../aplication/use-cases/user/recoveryPasswordUseCase';
+import { InitRecoveryPasswordUseCase } from '../../../aplication/use-cases/user/init-recovery-password.usecase';
+import { InitRecoveryPasswordDto } from '../../dtos/user/Init-recovery-password.dto';
+import { RecoveryPasswordUseCase } from '../../../aplication/use-cases/user/recovery-password-usecase';
+import { UpdateUserDto } from '../../dtos/user/update-user.dto';
+import { UpdateUserUseCase } from '../../../aplication/use-cases/user/update-user.usecase';
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly initRecoveryPasswordUseCase: InitRecoveryPasswordUseCase,
-    private readonly recoveryPasswordUseCase: RecoveryPasswordUseCase
+    private readonly recoveryPasswordUseCase: RecoveryPasswordUseCase,
+    private readonly updateUserUseCase : UpdateUserUseCase
   ) {}
 
   @Post()
   async create(@Body() data: CreateUserDto): Promise<void> {
     await this.createUserUseCase.execute(data);
+  }
+
+  @Patch('/update/:id')
+  async upadte(@Param('id') userId : number,@Body() data : UpdateUserDto): Promise<void> {
+    await this.updateUserUseCase.execute(userId,data);
   }
 
   @Post('recovery-password-process')
