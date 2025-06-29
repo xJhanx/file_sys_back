@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { CategoryRepository } from '../../../domain/repositories/category.repository';
 import { UpdateCategoryDto } from '../../../presentation/dtos/category/update-category.dto';
-import { UpdateCategoryDtoMapper } from '../../../presentation/mappers/category/update-category-dto.mapper';
-import { UpdateCategoryModel } from '../../../domain/models/category/update-category.model';
+import { UpdateCategoryDtoMapper } from '../../mappers/category/update-category-dto.mapper';
+import { UpdateCategoryModel } from '../../models/category/update-category.model';
+import { CategoryModel } from '../../../domain/models/category/category.model';
 
 export class UpdateCategoryUseCase {
   constructor(
@@ -10,24 +11,21 @@ export class UpdateCategoryUseCase {
   ) {}
 
   async execute(id: number, categoryDto: UpdateCategoryDto): Promise<void> {
-    const data: UpdateCategoryModel = UpdateCategoryDtoMapper.dtoToModel(id,categoryDto);
-    data.id = id;
-
-    const category : UpdateCategoryModel | null = await this.categoryRepository.findById(id);
+    const category: CategoryModel | null = await this.categoryRepository.findById(id);
 
     if (!category) {
-      throw new HttpException(`Category with id ${id} not found`,HttpStatus.NOT_FOUND);
+      throw new HttpException(`Category with id ${id} not found`, HttpStatus.NOT_FOUND);
     }
 
     // Update the category properties
-    if (data.name !== undefined) {
-      category.name = data.name;
+    if (categoryDto.name !== undefined) {
+      category.changeName(categoryDto.name);
     }
-    if (data.description !== undefined) {
-      category.description = data.description;
+    if (categoryDto.description !== undefined) {
+      category.changeDescription(categoryDto.description);
     }
-    if (data.code !== undefined) {
-      category.code = data.code;
+    if (categoryDto.code !== undefined) {
+      category.changeCode(categoryDto.code);
     }
 
     await this.categoryRepository.update(category);

@@ -1,5 +1,5 @@
-import { CreateCategoryDto } from '../../dtos/category/create-category.dto';
-import { CreateCategoryModel } from '../../../domain/models/category/create-category.model';
+import { CreateCategoryDto } from '../../../presentation/dtos/category/create-category.dto';
+import { CreateCategoryModel } from '../../models/category/create-category.model';
 
 export class CreateCategoryDtoMapper {
   static dtoToModel(data: CreateCategoryDto): CreateCategoryModel

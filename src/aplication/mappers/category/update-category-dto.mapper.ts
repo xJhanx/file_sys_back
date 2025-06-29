@@ -1,5 +1,5 @@
-import { UpdateCategoryDto } from '../../dtos/category/update-category.dto';
-import { UpdateCategoryModel } from '../../../domain/models/category/update-category.model';
+import { UpdateCategoryDto } from '../../../presentation/dtos/category/update-category.dto';
+import { UpdateCategoryModel } from '../../models/category/update-category.model';
 
 export class UpdateCategoryDtoMapper {
   static dtoToModel(id : number,data: UpdateCategoryDto): UpdateCategoryModel

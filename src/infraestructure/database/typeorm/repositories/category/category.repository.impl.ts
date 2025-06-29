@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { CategoryOrmEntity } from '../../entities/category.entity';
 import { CategoryOrmMapper } from '../../../../mappers/category.mapper';
 import { CategoryRepository } from '../../../../../domain/repositories/category.repository';
-import { CreateCategoryModel } from '../../../../../domain/models/category/create-category.model';
-import { UpdateCategoryModel } from '../../../../../domain/models/category/update-category.model';
+import { CreateCategoryModel } from '../../../../../aplication/models/category/create-category.model';
+import { UpdateCategoryModel } from '../../../../../aplication/models/category/update-category.model';
 import { CategoryModel } from '../../../../../domain/models/category/category.model';
 
 export class CategoryRepositoryImpl implements CategoryRepository {

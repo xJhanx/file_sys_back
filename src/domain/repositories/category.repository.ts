@@ -1,5 +1,5 @@
-import { CreateCategoryModel } from '../models/category/create-category.model';
-import { UpdateCategoryModel } from '../models/category/update-category.model';
+import { CreateCategoryModel } from '../../aplication/models/category/create-category.model';
+import { UpdateCategoryModel } from '../../aplication/models/category/update-category.model';
 import { CategoryModel } from '../models/category/category.model';
 
 

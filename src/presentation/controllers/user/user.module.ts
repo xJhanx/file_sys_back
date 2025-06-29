@@ -9,12 +9,14 @@ import { MailerRepositoryImpl } from '../../../infraestructure/mailer/repositori
 import { InitRecoveryPasswordUseCase } from '../../../aplication/use-cases/user/init-recovery-password.usecase';
 import { JwtRepositoryImpl } from '../../../infraestructure/jwt/jwt.repository.impl';
 import { RecoveryPasswordUseCase } from '../../../aplication/use-cases/user/recovery-password-usecase';
+import { UpdateUserUseCase } from '../../../aplication/use-cases/user/update-user.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserOrmEntity])],
   controllers: [UserController],
   providers: [
     CreateUserUseCase,
+    UpdateUserUseCase,
     InitRecoveryPasswordUseCase,
     RecoveryPasswordUseCase,
     {

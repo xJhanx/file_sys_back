@@ -1,5 +1,5 @@
-import { UpdateUserDto } from '../../dtos/user/update-user.dto';
-import { UpdateUserModel } from '../../../domain/models/user/update-user.model';
+import { UpdateUserDto } from '../../../presentation/dtos/user/update-user.dto';
+import { UpdateUserModel } from '../../models/user/update-user.model';
 
 export class UpdateUserDtoMapper {
   static toModel(id: number, data: UpdateUserDto): UpdateUserModel {

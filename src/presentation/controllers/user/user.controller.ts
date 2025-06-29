@@ -23,8 +23,8 @@ export class UserController {
   }
 
   @Patch('/update/:id')
-  async upadte(@Param('id') userId : number,@Body() data : UpdateUserDto): Promise<void> {
-    await this.updateUserUseCase.execute(userId,data);
+  async update(@Param('id') userId : number,@Body() data : UpdateUserDto): Promise<any> {
+    return await this.updateUserUseCase.execute(userId,data);
   }
 
   @Post('recovery-password-process')

@@ -5,8 +5,8 @@ import { UserModel } from '../../../../../domain/models/user/user.model';
 import { Repository } from 'typeorm';
 import { UserOrmEntity } from '../../entities/user.entity';
 import { UserMapper } from '../../../../mappers/user.mapper';
-import { CreateUserModel } from '../../../../../domain/models/user/create-user.model';
-import { UpdateUserModel } from '../../../../../domain/models/user/update-user.model';
+import { CreateUserModel } from '../../../../../aplication/models/user/create-user.model';
+import { UpdateUserModel } from '../../../../../aplication/models/user/update-user.model';
 
 @Injectable()
 export class UserRepositoryImpl implements UserRepository {
@@ -40,7 +40,7 @@ export class UserRepositoryImpl implements UserRepository {
     }
   }
 
-  async update(user: UpdateUserModel): Promise<void> {
+  async update(user: UpdateUserModel | UserModel): Promise<void> {
     try {
       const data: UserOrmEntity | null = await this.typeOrmDb.findOne({ where: { id: user.id } });
       if (!data) {
