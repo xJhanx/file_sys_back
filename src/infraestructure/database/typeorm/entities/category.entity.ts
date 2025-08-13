@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { ProductOrmEntity } from './product.entity';
 
 @Entity('category')
 export class CategoryOrmEntity {
@@ -14,6 +15,9 @@ export class CategoryOrmEntity {
 
   @Column({type: 'int', nullable: true})
   code : number;
+
+  @OneToMany( () => ProductOrmEntity, (product: ProductOrmEntity) => product.category )
+  products : ProductOrmEntity[];
 
   @CreateDateColumn()
   created_at: Date;
