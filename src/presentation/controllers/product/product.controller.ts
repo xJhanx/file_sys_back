@@ -1,13 +1,12 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateProductDto } from '../../dtos/product/create-product';
+import { CreateProductUseCase } from '../../../aplication/use-cases/product/crate-product.usecase';
 
 @Controller('product')
 export class ProductController {
-
+constructor(private readonly createProductUseCase: CreateProductUseCase) {}
   @Post()
   create(@Body() product : CreateProductDto) {
-    // Logic to create a product will go here
-    return product;
-    throw 'method not implemented';
+   return this.createProductUseCase.execute(product);
   }
 }

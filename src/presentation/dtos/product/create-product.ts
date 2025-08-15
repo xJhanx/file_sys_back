@@ -1,5 +1,4 @@
 import {IsNotEmpty, IsNumber, IsString, Validator } from 'class-validator';
-
 export class CreateProductDto extends Validator {
   @IsString({
     message: 'El nombre del producto debe ser una cadena de texto',
@@ -30,9 +29,12 @@ export class CreateProductDto extends Validator {
   @IsNumber(
     { allowNaN: false },
     {
-      message: 'La categoría del producto es requerida',
+      message: 'La categoría del producto debe ser un número',
     }
   )
+  @IsNotEmpty({
+    message: 'La categoría del producto no puede estar vacía',
+  })
   category_id: number;
 
 
