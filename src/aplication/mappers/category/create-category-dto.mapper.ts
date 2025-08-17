@@ -1,9 +1,8 @@
 import { CreateCategoryDto } from '../../../presentation/dtos/category/create-category.dto';
-import { CreateCategoryModel } from '../../models/category/create-category.model';
+import { CategoryModel } from '../../../domain/models/category/category.model';
 
-export class CreateCategoryDtoMapper {
-  static dtoToModel(data: CreateCategoryDto): CreateCategoryModel
-  {
-    return new CreateCategoryModel(data.name || '', data.description || '', data?.code);
+export class CategoryDtoMapper {
+  static dtoToModel(data: CreateCategoryDto): CategoryModel {
+    return CategoryModel.create(data.name, data.description, data.code);
   }
 }

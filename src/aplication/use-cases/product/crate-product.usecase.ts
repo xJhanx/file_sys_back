@@ -2,7 +2,7 @@ import { CreateProductDtoMapper } from '../../mappers/product/create-product-dto
 import { CreateProductDto } from '../../../presentation/dtos/product/create-product';
 import { ProductRepository } from '../../../domain/repositories/product.repository';
 import { Inject } from '@nestjs/common';
-import { CreateProductModel } from '../../models/product/create-product';
+import { ProductModel } from '../../../domain/models/product/product.model';
 
 export class CreateProductUseCase {
   constructor(
@@ -10,7 +10,7 @@ export class CreateProductUseCase {
   ) {}
 
   execute(productDto: CreateProductDto) {
-    const product : CreateProductModel = CreateProductDtoMapper.dtoToModel(productDto);
+    const product : ProductModel = CreateProductDtoMapper.dtoToModel(productDto);
     return this.productRepository.create(product);
   }
 }

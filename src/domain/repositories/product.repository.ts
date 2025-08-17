@@ -1,6 +1,6 @@
-import { CreateProductModel } from '../../aplication/models/product/create-product';
+import { ProductModel } from '../models/product/product.model';
 
 export interface ProductRepository {
-  create(product : CreateProductModel): Promise<void>;
+  create(product : ProductModel): Promise<void>;
   findByName(name : string): Promise<any>;
 }

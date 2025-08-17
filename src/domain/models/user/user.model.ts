@@ -1,13 +1,16 @@
 export class UserModel {
   constructor(
-    public id : number,
     public name: string,
     public last_name: string,
     public email: string,
-    public refresh_token: string,
+    public refresh_token: string | null,
     public password: string,
+    public id?: number,
   ) {}
 
+  static  create(name : string,last_name : string,email : string,password : string): UserModel {
+    return new UserModel(name,last_name,email,null,password);
+  }
   modifyPassword(newPassword: string): void {
     this.password = newPassword;
   }

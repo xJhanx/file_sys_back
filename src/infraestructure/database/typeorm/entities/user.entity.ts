@@ -17,7 +17,7 @@ export class UserOrmEntity {
   email: string;
 
   @Column({ type: 'text', nullable: true})
-  refresh_token: string;
+  refresh_token: string | null;
 
   @Column({ type: 'varchar', length: 200, nullable: false })
   password: string;

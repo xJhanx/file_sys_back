@@ -4,8 +4,6 @@ import { Repository } from 'typeorm';
 import { CategoryOrmEntity } from '../../entities/category.entity';
 import { CategoryOrmMapper } from '../../../../mappers/category.mapper';
 import { CategoryRepository } from '../../../../../domain/repositories/category.repository';
-import { CreateCategoryModel } from '../../../../../aplication/models/category/create-category.model';
-import { UpdateCategoryModel } from '../../../../../aplication/models/category/update-category.model';
 import { CategoryModel } from '../../../../../domain/models/category/category.model';
 
 export class CategoryRepositoryImpl implements CategoryRepository {
@@ -13,7 +11,7 @@ export class CategoryRepositoryImpl implements CategoryRepository {
     @InjectRepository(CategoryOrmEntity) private readonly typeOrmDb: Repository<CategoryOrmEntity>
   ) {}
 
-  async create(data: CreateCategoryModel): Promise<void> {
+  async create(data: any): Promise<void> {
     await this.typeOrmDb.save(data);
   }
 
@@ -33,8 +31,16 @@ async findById(id: number): Promise<CategoryModel | null> {
     return null;
 }
 
-async update(data: UpdateCategoryModel): Promise<void> {
-    await this.typeOrmDb.save(data);
+async update(data: CategoryModel): Promise<void> {
+    const category = {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      code: data.code,
+      created_at: data.created_at,
+      updated_at: data.updated_at
+    }
+    await this.typeOrmDb.save(category);
 }
 
   async delete(id: number): Promise<void> {

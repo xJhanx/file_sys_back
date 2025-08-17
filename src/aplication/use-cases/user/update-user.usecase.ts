@@ -3,7 +3,6 @@ import { HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { UserRepository } from '../../../domain/repositories/user.repository';
 import { UserModel } from '../../../domain/models/user/user.model';
 import { UpdateUserDtoMapper } from '../../mappers/user/update-user-dto.mapper';
-import { UpdateUserModel } from '../../models/user/update-user.model';
 import { PasswordHashRepository } from '../../../domain/repositories/password-hash.repository';
 
 export class UpdateUserUseCase {
@@ -14,16 +13,36 @@ export class UpdateUserUseCase {
 
   async execute(id: number, data: UpdateUserDto) {
     const existingUser: UserModel | null = await this.userRepository.findById(id);
-    const updateUserModel: UpdateUserModel = UpdateUserDtoMapper.toModel(id, data);
+    const dataUpdateUser: UserModel = UpdateUserDtoMapper.toModel(id, data);
 
-    if(updateUserModel.password){
-      const hashedPassword : string = await this.passwordRepository.hashPassword(updateUserModel.password);
-      updateUserModel.modifyPassword(hashedPassword);
-    }
     if (!existingUser) {
       throw new HttpException(`User with id ${id} not found`, HttpStatus.NOT_FOUND);
     }
-    updateUserModel.applyTo(existingUser);
+
+    if(dataUpdateUser.password){
+      const hashedPassword : string = await this.passwordRepository.hashPassword(dataUpdateUser.password);
+      dataUpdateUser.modifyPassword(hashedPassword);
+    }
+
+    if(dataUpdateUser.name){
+      existingUser.changeName(dataUpdateUser.name);
+    }
+
+    if(dataUpdateUser.last_name){
+      existingUser.changeLastName(dataUpdateUser.last_name);
+    }
+    if(dataUpdateUser.email){
+      const existingEmailUser: UserModel | null = await this.userRepository.findByEmail(dataUpdateUser.email);
+      if (existingEmailUser && existingEmailUser.id !== id) {
+        throw new HttpException('El correo electrónico ya está en uso por otro usuario', HttpStatus.CONFLICT);
+      }
+      existingUser.changeEmail(dataUpdateUser.email);
+    }
+
+    if(dataUpdateUser.refresh_token){
+      existingUser.changeRefreshToken(dataUpdateUser.refresh_token);
+    }
+
     return this.userRepository.update(existingUser);
   }
 }

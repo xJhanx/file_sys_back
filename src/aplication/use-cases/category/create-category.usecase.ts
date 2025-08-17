@@ -1,22 +1,25 @@
 import { HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { CategoryRepository } from '../../../domain/repositories/category.repository';
-import { CreateCategoryDtoMapper } from '../../mappers/category/create-category-dto.mapper';
 import { CreateCategoryDto } from '../../../presentation/dtos/category/create-category.dto';
-import { CreateCategoryModel } from '../../models/category/create-category.model';
 import { CategoryModel } from '../../../domain/models/category/category.model';
+import { CategoryDtoMapper } from '../../mappers/category/create-category-dto.mapper';
 
 export class CreateCategoryUseCase {
   constructor(
     @Inject('CategoryRepository') private readonly categoryRepository: CategoryRepository
   ) {}
 
-  async execute(data: CreateCategoryDto) : Promise<void> {
-    const categoryModel: CreateCategoryModel = CreateCategoryDtoMapper.dtoToModel(data);
-    categoryModel.description = categoryModel.description.toLowerCase();
-    const existingCategory : CategoryModel | null = await this.categoryRepository.findByName(categoryModel.name);
-    if( existingCategory) {
-      throw new HttpException(`La categoria con el nombre : ${existingCategory.name} ya existe`, HttpStatus.CONFLICT);
+  async execute(data: CreateCategoryDto): Promise<void> {
+    const categoryModel: CategoryModel = CategoryDtoMapper.dtoToModel(data);
+    const existingCategory: CategoryModel | null = await this.categoryRepository.findByName(
+      categoryModel.name
+    );
+    if (existingCategory) {
+      throw new HttpException(
+        `La categoria con el nombre : ${existingCategory.name} ya existe`,
+        HttpStatus.CONFLICT
+      );
     }
-    await this.categoryRepository.create(data);
+    await this.categoryRepository.create(categoryModel);
   }
 }

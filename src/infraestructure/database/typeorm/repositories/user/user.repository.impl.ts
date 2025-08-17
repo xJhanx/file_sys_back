@@ -5,8 +5,6 @@ import { UserModel } from '../../../../../domain/models/user/user.model';
 import { Repository } from 'typeorm';
 import { UserOrmEntity } from '../../entities/user.entity';
 import { UserMapper } from '../../../../mappers/user.mapper';
-import { CreateUserModel } from '../../../../../aplication/models/user/create-user.model';
-import { UpdateUserModel } from '../../../../../aplication/models/user/update-user.model';
 
 @Injectable()
 export class UserRepositoryImpl implements UserRepository {
@@ -14,8 +12,14 @@ export class UserRepositoryImpl implements UserRepository {
     @InjectRepository(UserOrmEntity) private readonly typeOrmDb: Repository<UserOrmEntity>
   ) {}
 
-  async create(user: CreateUserModel): Promise<void> {
+  async create(data: UserModel): Promise<void> {
     try {
+      const user = {
+        name: data.name,
+        last_name: data.last_name,
+        email: data.email,
+        password: data.password
+      }
       await this.typeOrmDb.save(user);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -40,12 +44,8 @@ export class UserRepositoryImpl implements UserRepository {
     }
   }
 
-  async update(user: UpdateUserModel | UserModel): Promise<void> {
+  async update(user: UserModel): Promise<void> {
     try {
-      const data: UserOrmEntity | null = await this.typeOrmDb.findOne({ where: { id: user.id } });
-      if (!data) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-      }
       await this.typeOrmDb.save(user);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);

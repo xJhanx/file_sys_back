@@ -14,7 +14,7 @@ export class CategoryOrmEntity {
   description : string;
 
   @Column({type: 'int', nullable: true})
-  code : number;
+  code : number | null;
 
   @OneToMany( () => ProductOrmEntity, (product: ProductOrmEntity) => product.category )
   products : ProductOrmEntity[];

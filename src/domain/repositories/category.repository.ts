@@ -1,12 +1,9 @@
-import { CreateCategoryModel } from '../../aplication/models/category/create-category.model';
-import { UpdateCategoryModel } from '../../aplication/models/category/update-category.model';
 import { CategoryModel } from '../models/category/category.model';
 
-
 export interface CategoryRepository {
-  create(data: CreateCategoryModel): Promise<void>;
+  create(data: CategoryModel): Promise<void>;
   findByName(name : string): Promise<CategoryModel | null>;
   findById(id: number): Promise<CategoryModel | null>;
-  update (data: UpdateCategoryModel): Promise<void>;
+  update (data: CategoryModel): Promise<void>;
   delete(id: number): Promise<void>;
 }
